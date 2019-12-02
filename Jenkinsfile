@@ -1,26 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Preparation') {
-            steps {
-                      sh 'mvn archetype:generate -B ' +
-                    '-DarchetypeGroupId=org.apache.maven.archetypes ' +
-                    '-DarchetypeArtifactId=maven-archetype-quickstart ' +
-                    '-DgroupId=com.company -DartifactId=my-app'
-            }
-        }
+
     stage('Build') {
            steps {
             dir ('simple-java-maven-app') {
                  
-                sh 'mvn clean install test'
+                sh 'mvn clean package'
             }   
         } 
        
    }
    stage('Archive') {
          steps {
-           dir ('myproject/target') {
+           dir ('simple-java-maven-app/target') {
            archive '*.jar'
          }  
       } 
